@@ -10,6 +10,7 @@ import numpy as np
 from PIL import Image
 
 import tensorflow as tf
+import argparse
 
 
 
@@ -108,7 +109,8 @@ def label_to_color_image(label):
   return colormap[label]
 
 
-def vis_segmentation(image, seg_map,width,height):
+def vis_segmentation(image, seg_map,width,height,args):
+
   """Visualizes input image, segmentation map and overlay view."""
 
   seg_image = label_to_color_image(seg_map).astype(np.uint8)
@@ -124,8 +126,12 @@ def vis_segmentation(image, seg_map,width,height):
   #img=Image.fromarray( np.asarray( np.clip(npdata,0,255), dtype="uint8"), "L" )
   #Image.fromarray(img).show()
 
+  img_pth=args.image_path
+
+  cropped_img_pth='./cropped_image/'+ (img_pth.rsplit('/', 1)[1])
+
   #save image to the destination
-  Image.fromarray(img).resize((width, height), Image.ANTIALIAS).save('/home/usman/Desktop/client_images/croped_images/j.JPEG')
+  Image.fromarray(img).resize((width, height), Image.ANTIALIAS).save(cropped_img_pth)
   #plt.imshow(seg_image)
 
   unique_labels = np.unique(seg_map)
@@ -142,25 +148,42 @@ FULL_LABEL_MAP = np.arange(len(LABEL_NAMES)).reshape(len(LABEL_NAMES), 1)
 FULL_COLOR_MAP = label_to_color_image(FULL_LABEL_MAP)
 
 
-def run_visualization(url):
+def run_visualization(args):
     """Inferences DeepLab model and visualizes result."""
     try:
         # f = urllib.request.urlopen(url)
         # jpeg_str = f.read()
         # original_im = Image.open(BytesIO(jpeg_str))
-        original_im = Image.open('/home/usman/Desktop/client_images/1565330718970.JPEG')
+
+
+        original_im = Image.open(args.image_path)
         width, height = original_im.size
 
     except IOError:
-        print('Cannot retrieve image. Please check url: ' + url)
+        print('Cannot retrieve image. Please check url: ' + args.image_path)
         return
 
-    print('running deeplab on image %s...' % url)
+    print('running deeplab on image %s...' % args.image_path)
     resized_im, seg_map = MODEL.run(original_im)
 
-    vis_segmentation(resized_im, seg_map,width,height)
+    vis_segmentation(resized_im, seg_map,width,height,args)
 
 if __name__ == '__main__':
+
+    parser = argparse.ArgumentParser(
+        description="Crop you image\
+             by giving the path to your image\
+              ")
+    parser.add_argument("--image_path",
+                        required=True,
+                        help="full path to your image")
+
+    parser.add_argument("--background_path",
+                        required=True,
+                        help="full path to the background image")
+
+    args = parser.parse_args()
+
     MODEL_NAME = 'xception_coco_voctrainaug'  # @param ['mobilenetv2_coco_voctrainaug', 'mobilenetv2_coco_voctrainval', 'xception_coco_voctrainaug', 'xception_coco_voctrainval']
 
     _DOWNLOAD_URL_PREFIX = 'http://download.tensorflow.org/models/'
@@ -213,7 +236,7 @@ if __name__ == '__main__':
 
     # image_url = IMAGE_URL or _SAMPLE_URL % SAMPLE_IMAGE'
     image_url = ''
-    run_visualization(image_url)
+    run_visualization(args)
 
 
 
