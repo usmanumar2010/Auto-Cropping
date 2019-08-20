@@ -8,7 +8,7 @@ from matplotlib import gridspec
 from matplotlib import pyplot as plt
 import numpy as np
 from PIL import Image
-
+import cv2
 import tensorflow as tf
 import argparse
 
@@ -117,25 +117,26 @@ def vis_segmentation(image, seg_map,width,height,args):
 
   sample=seg_image
   black_pixels_mask = np.all(sample == [0, 0, 0], axis=-1)
-  #sample[black_pixels_mask]=[255,255,255]
-  # from PIL import Image
-  # pink_pixels= np.where((H>lo) & (H<hi))
-
-  img= np.asarray(image).astype(np.uint8)
-  img[black_pixels_mask]=[255,255,255]
-  #img=Image.fromarray( np.asarray( np.clip(npdata,0,255), dtype="uint8"), "L" )
-  #Image.fromarray(img).show()
-
+  img = np.asarray(image).astype(np.uint8)
+  img[black_pixels_mask] = [255, 255, 255]
+  create_bin_mask = img
+  create_bin_mask[black_pixels_mask] = [255, 255, 255]
+  create_bin_mask[black_pixels_mask == False] = [0, 0, 0]
+  background = Image.open(args.background_path)
+  background = background.resize((img.shape[1],img.shape[0]), Image.ANTIALIAS)
+  background = cv2.cvtColor(np.array(background), cv2.COLOR_BGR2RGB)
+  crop_background = np.array(background)
+  crop_background[black_pixels_mask==False] = [0, 0, 0]
+  original_img=np.asarray(image).astype(np.uint8)
+  original_img[black_pixels_mask] = [0, 0, 0]
+  final_image = crop_background + original_img
   img_pth=args.image_path
-
   cropped_img_pth='./cropped_image/'+ (img_pth.rsplit('/', 1)[1])
-
   #save image to the destination
   Image.fromarray(img).resize((width, height), Image.ANTIALIAS).save(cropped_img_pth)
-  #plt.imshow(seg_image)
-
-  unique_labels = np.unique(seg_map)
-
+  #save pasted image
+  cropped_img_pth='./pasted_image/'+ (img_pth.rsplit('/', 1)[1])
+  Image.fromarray(final_image).resize((width, height), Image.ANTIALIAS).save(cropped_img_pth)
 
 
 LABEL_NAMES = np.asarray([
