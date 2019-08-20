@@ -119,6 +119,7 @@ def vis_segmentation(image, seg_map,width,height,args):
   black_pixels_mask = np.all(sample == [0, 0, 0], axis=-1)
   img = np.asarray(image).astype(np.uint8)
   img[black_pixels_mask] = [255, 255, 255]
+  cropped_input_img=img.copy()
   create_bin_mask = img
   create_bin_mask[black_pixels_mask] = [255, 255, 255]
   create_bin_mask[black_pixels_mask == False] = [0, 0, 0]
@@ -133,10 +134,10 @@ def vis_segmentation(image, seg_map,width,height,args):
   img_pth=args.image_path
   cropped_img_pth='./cropped_image/'+ (img_pth.rsplit('/', 1)[1])
   #save image to the destination
-  Image.fromarray(img).resize((width, height), Image.ANTIALIAS).save(cropped_img_pth)
+  Image.fromarray(cropped_input_img).resize((width, height), Image.ANTIALIAS).save(cropped_img_pth)
   #save pasted image
-  cropped_img_pth='./pasted_image/'+ (img_pth.rsplit('/', 1)[1])
-  Image.fromarray(final_image).resize((width, height), Image.ANTIALIAS).save(cropped_img_pth)
+  pasted_image_path='./pasted_image/'+ (img_pth.rsplit('/', 1)[1])
+  Image.fromarray(final_image).resize((width, height), Image.ANTIALIAS).save(pasted_image_path)
 
 
 LABEL_NAMES = np.asarray([
