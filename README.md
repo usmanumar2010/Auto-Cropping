@@ -7,7 +7,7 @@ I used several techniques to perform and segmentation but with [Mask-RCNN](https
     <img src="demo_images/mask_rcnn.png" width=600></br>
 </p>
 
-Finally i studied about [DeepLab](https://github.com/tensorflow/models/tree/master/research/deeplab) is a state-of-art deep learning model for semantic image segmentaion it help me achieving my desired results for Demo.
+Finally i studied about [DeepLab](https://github.com/tensorflow/models/tree/master/research/deeplab) is a state-of-art deep learning model for semantic image segmentaion it help me achieving my desired results for Demo.I used pretrined model for this project 'xception_coco_voctrainaug' on COCO dataset.  
 
 <p align="center">
     <img src="g3doc/img/vis1.png" width=600></br>
