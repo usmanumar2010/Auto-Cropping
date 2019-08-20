@@ -52,7 +52,7 @@ _pasted_image_  directory
 
 
 
-#Helping material 
+# Helping material 
 
 Material that helped me and will help me in the future 
 
