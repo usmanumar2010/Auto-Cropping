@@ -19,13 +19,20 @@ Finally i studied about DeepLab is a state-of-art deep learning model for semant
 # How To run 
 
 **Script**: Crop.py
+
 **arguments** : image_path ,background_path
+
 **Example**:python Crop.py --image_path="/home/usman/Desktop/1936314_1690334921205554_3960288358644789045_n.jpg"  --    background_path="/home/usman/Desktop/pexels-photo-949587.jpeg"
-Explanation :
-**--image_path** : path to the image which need to be cropped "
-**--background_path** :path to the background that you need to paste your cropped image on 
+
+**Explanation** :
+
+**--image_path** : path to the image which need to be cropped 
+
+**--background_path** :path to the background that you need to paste your cropped image on
+
 
 **Visual Example**:
+
 Path to input image and the background image 
  
 <p align="center">
@@ -33,8 +40,11 @@ Path to input image and the background image
 </p>
 
 In the following directories you can see your cropped image and the pasted image(on a background)
+
 _cropped_image_ directory 
+
 _pasted_image_  directory 
+
 
 <p align="center">
     <img src="demo_images/Screenshot from 2019-08-20 17-50-58.png" width=600></br>
@@ -42,6 +52,25 @@ _pasted_image_  directory
 
 
 
+#Helping material 
+
+Material that helped me and will help me in the future 
+
+https://arxiv.org/abs/1606.00915
+
+https://arxiv.org/abs/1505.04597
+
+https://arxiv.org/abs/1703.03872
+
+https://arxiv.org/abs/1703.06870
+
+https://www.fast.ai/
+
+https://medium.com/nanonets/how-to-do-image-segmentation-using-deep-learning-c673cc5862ef
+
+https://medium.com/fnplus/blue-or-green-screen-effect-with-open-cv-chroma-keying-94d4a6ab2743
+
+https://towardsdatascience.com/background-removal-with-deep-learning-c4f2104b3157
      
 
 
