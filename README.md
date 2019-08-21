@@ -1,5 +1,4 @@
-# Auto-Cropping: Demonstrating how can we use Segmentation to automate cropping 
-
+# Auto-Cropping: Image Background Removal using Deep Learning
 Background removal is a task that is quite easy to do manually, or semi manually (Photoshop, and even Power Point has such tools) if you use some kind of a “marker” and edge detection. However, fully automated background removal is quite a challenging task.So i was quite inspired by this [idea](https://towardsdatascience.com/background-removal-with-deep-learning-c4f2104b3157).So I thought to work with this in a **Secure and private AI** project showcase challenge.
 
 I used several techniques to perform segmentation but with [Mask-RCNN](https://github.com/matterport/Mask_RCNN) pretrained model I was not able to get a proper segementation.
